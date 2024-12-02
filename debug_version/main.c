@@ -6,7 +6,7 @@
 /*   By: nranna <nranna@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:30:57 by nranna            #+#    #+#             */
-/*   Updated: 2024/12/01 23:28:02 by nranna           ###   ########.fr       */
+/*   Updated: 2024/12/01 17:14:08 by nranna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void init_all_sentences(t_sentence *sentence);
 static void free_sentences(t_sentence *sentence);
-static void clean_minishell(char *line, t_sentence *sentence);
+static void clean_minishell(char *line, t_sentence *sentence, char *error);
 
 int	main(void)
 {
@@ -41,11 +41,19 @@ int	main(void)
 				if (lexer(sentence) == EXIT_SUCCESS)
 				{
 					if (executor(sentence) == EXIT_FAILURE)
-						clean_minishell(line, sentence);
+						clean_minishell(line, sentence, "Error EXECUTING\n");
 				}
 			}
 		}
-		clean_minishell(line, sentence);
+		//<DEBUG>
+		int i = 0;
+		while (sentence[i].token_lst)
+		{
+			print_token_list(sentence[i].token_lst, i);
+			i++;
+		}
+		//<END DEBUG>
+		clean_minishell(line, sentence, "[DEFAULT CLEANING ROUTINE]");
 	}
 	free(sentence);
 	return (0);
@@ -73,6 +81,7 @@ static void free_sentences(t_sentence *sentence)
 		return ;
 	while (sentence[i].token_lst)
 	{
+		printf("Freeing sentence[%d]\n", i); //DEBUG
 		free_token_list(sentence[i].token_lst);
 		sentence[i].token_lst = NULL;
 		i++;
@@ -80,8 +89,9 @@ static void free_sentences(t_sentence *sentence)
 	return ;
 }
 
-static void clean_minishell(char *line, t_sentence *sentence)
+static void clean_minishell(char *line, t_sentence *sentence, char *error)
 {
+	printf("\n\n\nMinishell: %s\n", error);
 	if (line)
 		free(line);
 	free_sentences(sentence);

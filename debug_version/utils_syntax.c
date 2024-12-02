@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   utils_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nranna <nranna@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 16:14:15 by nranna            #+#    #+#             */
-/*   Updated: 2024/12/01 23:29:35 by nranna           ###   ########.fr       */
+/*   Created: 2024/11/30 21:23:56 by nranna            #+#    #+#             */
+/*   Updated: 2024/11/30 22:37:49 by nranna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	executor(t_sentence *sentence)
+void	skip_quotes(char *line, int *i)
 {
-	return (EXIT_SUCCESS);
+	char	quote;
+
+	quote = line[*i];
+	(*i)++;
+	while (line[*i] && line[*i] != quote)
+		(*i)++;
+	if (line[*i] == quote)
+		(*i)++;
+}
+
+int	ft_isspace(int c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' ||
+			c == '\v' || c == '\f' || c == '\r');
 }

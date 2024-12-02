@@ -6,11 +6,12 @@
 /*   By: nranna <nranna@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:28:01 by nranna            #+#    #+#             */
-/*   Updated: 2024/12/01 23:28:39 by nranna           ###   ########.fr       */
+/*   Updated: 2024/12/01 21:47:41 by nranna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+#include <stdlib.h>
 
 static int	check_unclosed_quotes(char *line);
 static int	check_wrong_operator(char *line);
@@ -30,6 +31,7 @@ int	syntax_scanner(char *line)
 		if (!line[i])
 			return (EXIT_FAILURE);
 	}
+	printf("DEBUG: got in the syntax section... and line is [%s]\n", line); //debug
 	if (check_unclosed_quotes(line) == EXIT_FAILURE)
 		return (printf("Bad syntax: Unclosed quotes.\n"), EXIT_FAILURE);
 	if (check_wrong_operator(line) == EXIT_FAILURE)
@@ -69,7 +71,7 @@ static int	check_wrong_operator(char *line)
 	i = 0;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
-	if (line[i] == '|')
+	if (line[i] == '|' /*|| line[i] == '<' || line[i] == '>'*/)
 		return (EXIT_FAILURE);
 	if (check_consecutive_operators(line) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
