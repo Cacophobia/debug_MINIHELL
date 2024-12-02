@@ -6,7 +6,7 @@
 /*   By: nranna <nranna@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:30:57 by nranna            #+#    #+#             */
-/*   Updated: 2024/12/01 23:28:02 by nranna           ###   ########.fr       */
+/*   Updated: 2024/12/01 23:33:33 by nranna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void init_all_sentences(t_sentence *sentence);
-static void free_sentences(t_sentence *sentence);
-static void clean_minishell(char *line, t_sentence *sentence);
+static void	init_all_sentences(t_sentence *sentence);
+static void	free_sentences(t_sentence *sentence);
+static void	clean_minishell(char *line, t_sentence *sentence);
 
 int	main(void)
 {
-	char			*line;
-	t_sentence		*sentence;
+	char		*line;
+	t_sentence	*sentence;
 
 	line = NULL;
 	//start linked list for envp here.
@@ -51,7 +51,7 @@ int	main(void)
 	return (0);
 }
 
-static void init_all_sentences(t_sentence *sentence)
+static void	init_all_sentences(t_sentence *sentence)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ static void init_all_sentences(t_sentence *sentence)
 	return ;
 }
 
-static void free_sentences(t_sentence *sentence)
+static void	free_sentences(t_sentence *sentence)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ static void free_sentences(t_sentence *sentence)
 	return ;
 }
 
-static void clean_minishell(char *line, t_sentence *sentence)
+static void	clean_minishell(char *line, t_sentence *sentence)
 {
 	if (line)
 		free(line);
