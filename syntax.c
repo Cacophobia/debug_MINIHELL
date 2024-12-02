@@ -6,7 +6,7 @@
 /*   By: nranna <nranna@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:28:01 by nranna            #+#    #+#             */
-/*   Updated: 2024/12/01 16:39:35 by nranna           ###   ########.fr       */
+/*   Updated: 2024/12/01 21:35:57 by nranna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	syntax_scanner(char *line)
 		if (!line[i])
 			return (EXIT_FAILURE);
 	}
-	printf("DEBUG: got in the syntax section... and line is [%s]\n", line); //DEBUG
+	printf("DEBUG: got in the syntax section... and line is [%s]\n", line); //debug
 	if (check_unclosed_quotes(line) == EXIT_FAILURE)
 		return (printf("Bad syntax: Unclosed quotes.\n"), EXIT_FAILURE);
 	if (check_wrong_operator(line) == EXIT_FAILURE)
@@ -103,6 +103,8 @@ static int	check_consecutive_operators(char *line)
 		}
 		if (line[i] == '|' || line[i] == '<' || line[i] == '>')
 		{
+			if ((line[i] == '<' || line[i] == '>') && (line[i] == line[i + 1]))
+				break ;
 			j = i + 1;
 			while (line[j] && ft_isspace(line[j]))
 				j++;
